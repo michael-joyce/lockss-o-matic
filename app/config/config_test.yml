@@ -40,5 +40,5 @@ doctrine:
         # variables are defined in parameters.yml
         host: 127.0.0.1
         dbname: lomtest
-        user: lomtest
-        password: abc123
+        user: root
+        password: root

@@ -88,7 +88,18 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-        
+    {% if app.user %}
+        <!-- Static tabs -->
+    <div role="navigation">
+      <ul class="nav nav-tabs nav-justified" id="defualttabsul"  role="tablist">
+          <li id="dashboardnavli"><a href="#default">Dashboard</a></li>
+          <li id="depositsnavli"><a  href="{{ path('deposits') }}">Deposits</a></li>
+          <li id="contentprovidersnavli"><a  href="{{ path('contentproviders') }}">Content Providers</a></li>
+          <li id="contentownersnavli"><a  href="{{ path('contentowners') }}">Content Owners</a></li>
+          <li id="reportsnavli"><a href="#reports">Reports</a></li>
+      </ul>
+    </div>
+    {% endif %}
 
         <div class="container">
             {% block body %}{% endblock %}
@@ -97,6 +108,9 @@
         <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
         <script src="{{ asset('js/jquery.js') }}"></script>
         <!-- Include all JavaScripts, compiled by Assetic -->
-        <script src="{{ asset('js/bootstrap.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>        
+        <!-- Custom JavaScript (requries jQuery and Bootstrap) -->
+        <script src="{{ asset('js/lomui.js') }}"></script>
+
 </body>
 </html>
