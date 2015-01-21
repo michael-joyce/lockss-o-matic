@@ -173,6 +173,10 @@ class PluginProperties
         return $this->children;
     }
 
+    public function hasChildren() {
+        return count($this->children) > 0;
+    }
+    
     /**
      * Set plugin
      *
@@ -217,5 +221,9 @@ class PluginProperties
     public function getParent()
     {
         return $this->parent;
+    }
+    
+    public function hasParent() {
+        return $this->parent !== null;
     }
 }
