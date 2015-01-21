@@ -61,6 +61,11 @@ class Plugins
     private $contentOwners;
 
     /**
+     * @var string
+     */
+    private $path;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -282,4 +287,26 @@ class Plugins
         return $this->contentOwners;
     }
 
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Plugins
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
 }

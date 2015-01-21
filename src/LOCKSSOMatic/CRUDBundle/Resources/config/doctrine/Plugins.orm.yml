@@ -26,3 +26,8 @@ LOCKSSOMatic\CRUDBundle\Entity\Plugins:
             length: 128
             nullable: false
             comment: 'The name of the plugin.'
+        path:
+            type: string
+            length: 255
+            nullable: false
+            comment: 'The full file-system path to the jar file.'
