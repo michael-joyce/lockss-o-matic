@@ -16,17 +16,56 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('plugins') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('plugins_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <h2>Identifier</h2>
+    {{ entity.getPluginIdentifier() }}
+
+    <h2>Definitional Properties</h2>
+    <ul>
+        {% for prop in entity.getDefinitionalProperties() %}
+            <li>{{ prop }}</li>
+            {% endfor %}
+    </ul>
+
+
+    <h2>All Properties</h2>
+    <ul>
+        {% for prop in entity.pluginProperties() %}
+            {% if not prop.hasParent() %}
+                {% if not prop.hasChildren() %}
+                    <li>{{ prop.propertyKey }}: {{ prop.propertyValue }}</li>
+                    {% else %}
+                    <li>{{ prop.propertyKey }}
+                        <ul>
+                            {% for child in prop.getChildren() %}
+                                {% if not child.hasChildren() %}
+                                    <li>{{ child.propertyKey }}: {{ child.propertyValue }}</li>
+                                    {% else %}
+                                    <li>{{ child.propertyKey }}
+                                        <ul>
+                                            {% for grandchild in child.getChildren %}
+                                                <li>{{ grandchild.propertyKey }}: {{ grandchild.propertyValue }}</li>                                                
+                                                {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('plugins') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('plugins_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}
