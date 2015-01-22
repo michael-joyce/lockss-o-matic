@@ -53,6 +53,7 @@ class ContentProvidersType extends AbstractType
             ->add('maxAuSize')
             ->add('contentOwner')
             ->add('pln')
+            ->add('plugin')
         ;
     }
     
