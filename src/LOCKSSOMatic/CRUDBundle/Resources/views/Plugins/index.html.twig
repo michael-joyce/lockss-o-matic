@@ -21,9 +21,6 @@
                     <li>
                         <a href="{{ path('plugins_show', { 'id': entity.id }) }}">show</a>
                     </li>
-                    <li>
-                        <a href="{{ path('plugins_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
                 </ul>
                 </td>
             </tr>
@@ -33,8 +30,8 @@
 
         <ul>
         <li>
-            <a href="{{ path('plugins_new') }}">
-                Create a new entry
+            <a href="{{ path('import_plnplugin') }}">
+                Import a new plugin
             </a>
         </li>
     </ul>

@@ -13,3 +13,5 @@
 *.php~
 /api/*
 !api/.gitkeep
+/data/plugin-jars/*
+!/data/plugin-jars/.gitkeep

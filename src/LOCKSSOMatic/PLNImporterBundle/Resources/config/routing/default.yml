@@ -1,0 +1,5 @@
+
+import_plnplugin:
+    path: plnplugin
+    defaults: { _controller: "LOCKSSOMaticPLNImporterBundle:Default:importPlugin" }
+    

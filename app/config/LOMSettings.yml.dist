@@ -5,3 +5,6 @@ parameters:
     path_to_uploads: "/var/www/lockss-o-matic/uploads"
     path_to_pln_files: "/var/www/lockss-o-matic/plnfiles"
     path_to_lom_event_log: "/tmp/lom_events.log"
+
+    # do not include the trailing slash.
+    jar_directory: /path/to/data/plugin-jars
