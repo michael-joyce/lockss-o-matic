@@ -108,6 +108,11 @@ class ContentProviders
     private $aus;
 
     /**
+     * @var \LOCKSSOMatic\CRUDBundle\Entity\Plugins
+     */
+    private $plugin;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -479,4 +484,29 @@ class ContentProviders
     {
         return $this->aus;
     }
+
+    /**
+     * Set plugin
+     *
+     * @param \LOCKSSOMatic\CRUDBundle\Entity\Plugins $plugin
+     * @return ContentOwners
+     */
+    public function setPlugin(\LOCKSSOMatic\CRUDBundle\Entity\Plugins $plugin = null)
+    {
+        $this->plugin = $plugin;
+
+        return $this;
+    }
+
+    /**
+     * Get plugin
+     *
+     * @return \LOCKSSOMatic\CRUDBundle\Entity\Plugins 
+     */
+    public function getPlugin()
+    {
+        return $this->plugin;
+    }
+    
+    
 }

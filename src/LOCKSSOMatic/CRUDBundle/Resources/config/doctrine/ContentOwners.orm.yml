@@ -4,14 +4,6 @@ LOCKSSOMatic\CRUDBundle\Entity\ContentOwners:
         contentProviders:
             targetEntity: ContentProviders
             mappedBy: contentOwner
-    manyToOne:
-        plugin:
-            targetEntity: Plugins
-            inversedBy: contentOwners
-            joinColumn:
-                name: plugins_id
-                referencedColumnName: id
-                onDelete: cascade
     table: content_owners
     id:
         id:

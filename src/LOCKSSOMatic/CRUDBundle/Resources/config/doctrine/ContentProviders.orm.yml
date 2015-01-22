@@ -15,6 +15,13 @@ LOCKSSOMatic\CRUDBundle\Entity\ContentProviders:
                 name: plns_id
                 referencedColumnName: id
                 onDelete: cascade
+        plugin:
+            targetEntity: Plugins
+            inversedBy: contentOwners
+            joinColumn:
+                name: plugins_id
+                referencedColumnName: id
+                onDelete: cascade
     oneToMany:
         deposits:
             targetEntity: Deposits
