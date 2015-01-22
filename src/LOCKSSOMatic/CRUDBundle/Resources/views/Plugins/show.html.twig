@@ -13,6 +13,10 @@
                 <th>Name</th>
                 <td>{{ entity.name }}</td>
             </tr>
+            <tr>
+                <th>File path</th>
+                <td>{{ entity.path }}</td>
+            </tr>
         </tbody>
     </table>
 
@@ -59,11 +63,6 @@
         <li>
             <a href="{{ path('plugins') }}">
                 Back to the list
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('plugins_edit', { 'id': entity.id }) }}">
-                Edit
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

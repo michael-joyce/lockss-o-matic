@@ -24,9 +24,6 @@
                     <li>
                         <a href="{{ path('pluginproperties_show', { 'id': entity.id }) }}">show</a>
                     </li>
-                    <li>
-                        <a href="{{ path('pluginproperties_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
                 </ul>
                 </td>
             </tr>
@@ -39,11 +36,4 @@
     {{ knp_pagination_render(pagination) }}
 </div>        
 
-    <ul>
-        <li>
-            <a href="{{ path('pluginproperties_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+{% endblock %}
