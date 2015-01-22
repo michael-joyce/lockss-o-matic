@@ -18,7 +18,7 @@ class PLNPluginImportService
      * @var EntityManager
      */
     private $em;
-    
+
     /**
      * @var ContainerInterface
      */
@@ -48,25 +48,13 @@ class PLNPluginImportService
         $pluginData = $zip->getFromName($pluginPath);
         $pluginXml = new SimpleXMLElement($pluginData);
         try {
-            $plugin = $this->importPlugin($pluginXml, $jarInfo);
-            
-            $filename = $jarInfo->getFilename();
-            $this->container->get('logger')->error('XXXX class: ' . get_class($jarInfo));
-            if(get_class($jarInfo) === 'Symfony\Component\HttpFoundation\File\UploadedFile') {
-                $filename = $jarInfo->getClientOriginalName();
-            }
-            $this->container->get('logger')->error('XXXX filename: ' . $filename);
-            if($copy) {
-                copy($jarInfo->getPathname(), $this->container->getParameter('jar_directory') . '/' . $filename);
-            } else {
-                rename($jarInfo->getPathname(), $this->container->getParameter('jar_directory') . '/' . $filename);
-            }
-            $plugin->setPath($this->container->getParameter('jar_directory') . '/' . $filename);
-            
+            $plugin = $this->buildPlugin($pluginXml, $jarInfo, $copy);
             $this->em->persist($plugin);
+            $this->addProperties($plugin, $pluginXml);
             return $plugin;
         } catch (Exception $e) {
-            throw new Exception("Error processing {$jarInfo->getFilename()}", null, $e);
+            throw new Exception("Error processing {$jarInfo->getFilename()}",
+            null, $e);
         }
     }
 
@@ -163,14 +151,7 @@ class PLNPluginImportService
         return $property;
     }
 
-    /**
-     * Import the data from the plugin. Does not create content
-     * owners for the plugins, that's handled by the titledb import
-     * command.
-     *
-     * @param SimpleXMLElement $xml
-     */
-    public function importPlugin(SimpleXMLElement $xml, SplFileInfo $jarInfo)
+    public function buildPlugin(SimpleXMLElement $xml, SplFileInfo $jarInfo, $copy)
     {
         $pluginRepo = $this->em->getRepository('LOCKSSOMaticCRUDBundle:Plugins');
 
@@ -182,7 +163,33 @@ class PLNPluginImportService
         $plugin = new Plugins();
         $plugin->setName($pluginName);
 
-        $this->newPluginProperty($plugin, 'plugin_name', $pluginName);
+        $filename = $jarInfo->getFilename();
+        if (get_class($jarInfo) === 'Symfony\Component\HttpFoundation\File\UploadedFile') {
+            $filename = $jarInfo->getClientOriginalName();
+        }
+        if ($copy) {
+            copy($jarInfo->getPathname(),
+                $this->container->getParameter('jar_directory') . '/' . $filename);
+        } else {
+            rename($jarInfo->getPathname(),
+                $this->container->getParameter('jar_directory') . '/' . $filename);
+        }
+        $plugin->setPath($this->container->getParameter('jar_directory') . '/' . $filename);
+
+
+        return $plugin;
+    }
+
+    /**
+     * Import the data from the plugin. Does not create content
+     * owners for the plugins, that's handled by the titledb import
+     * command.
+     *
+     * @param SimpleXMLElement $xml
+     */
+    public function addProperties(Plugins $plugin, SimpleXMLElement $xml)
+    {
+        $this->newPluginProperty($plugin, 'plugin_name', $plugin->getName());
         $this->newPluginProperty($plugin, 'plugin_version',
             $this->findXmlPropString($xml, 'plugin_version'));
         $this->newPluginProperty($plugin, 'plugin_identifier',
@@ -208,7 +215,7 @@ class PLNPluginImportService
                 $childProp->setParent($pluginProperties);
             }
         }
-        
+
         return $plugin;
     }
 
