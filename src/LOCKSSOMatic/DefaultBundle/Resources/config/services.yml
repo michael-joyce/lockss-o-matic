@@ -1,4 +1,6 @@
 services:
-#    locksso_matic_default.example:
-#        class: LOCKSSOMatic\DefaultBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    locksso_matic_default.example:
+        class: LOCKSSOMatic\DefaultBundle\Twig\PlnsExtension
+        arguments: [@doctrine]
+        tags:
+            - { name: twig.extension }
