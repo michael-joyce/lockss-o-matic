@@ -1,6 +1,6 @@
 services:
     locksso_matic_default.example:
         class: LOCKSSOMatic\DefaultBundle\Twig\PlnsExtension
-        arguments: [@doctrine]
+        arguments: [@doctrine, @session]
         tags:
             - { name: twig.extension }

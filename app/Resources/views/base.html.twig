@@ -47,11 +47,24 @@
                                 <li><a href="{{ path('pluginproperties') }}">Plugin Properties</a></li>
                             </ul>
                         </li>
-                        
-                        <li class='dropdown' role='menu'><a href='#' class="dropdown-toggle" data-toggle="dropdown">COPPUL PLN <span class="caret"></span></a>
+
+                        <li class='dropdown' role='menu'>
+                            <a href='#' class="dropdown-toggle" data-toggle="dropdown">
+                                {% set pln = currentPln() %}
+                                {% if pln is defined and pln is not null %}
+                                    {{ pln.name }} 
+                                {% else %}
+                                    Select PLN
+                                {% endif %}
+                                <span class="caret"></span>
+                            </a>
                             <ul class='dropdown-menu' role='menu'>
                                 {% for pln in plnsList() %}
-                                    <li><a href='#'>{{ pln.name }}</a></li>
+                                    <li>
+                                        <a href='{{ path('switch_pln', {'pln': pln.id, 'url': app.request.uri }) }}'>
+                                            {{ pln.name }}
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </li>

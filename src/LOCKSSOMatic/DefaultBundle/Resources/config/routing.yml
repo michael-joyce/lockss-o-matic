@@ -1,3 +1,7 @@
 lom_default_homepage:
     path:     /
     defaults: { _controller: LOCKSSOMaticDefaultBundle:Default:index }
+
+switch_pln:
+    path: /switch
+    defaults: { _controller: LOCKSSOMaticDefaultBundle:Default:switchPln }

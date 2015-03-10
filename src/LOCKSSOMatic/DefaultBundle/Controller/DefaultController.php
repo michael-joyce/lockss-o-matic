@@ -27,7 +27,9 @@
 namespace LOCKSSOMatic\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Default controller just displays a static page.
@@ -42,5 +44,16 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->render('LOCKSSOMaticDefaultBundle:Default:index.html.twig');
+    }
+    
+    public function switchPlnAction(Request $request) {
+        $uri = $request->query->get('url');
+        $plnId = $request->query->get('pln');
+        /**
+         * @var Session
+         */
+        $session = $this->container->get('session');
+        $session->set('plnId', $plnId);
+        return $this->redirect($uri);
     }
 }
