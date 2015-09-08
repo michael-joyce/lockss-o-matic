@@ -90,9 +90,13 @@ class DefaultController extends Controller
             'on-behalf-of'
         );
         foreach ($headers as $h) {
-            $value = $request->headers->get($h);
-            if (!is_null($value)) {
-                return $value;
+            if ($request->headers->has($h)) {
+                return $request->headers->get($h);
+            }
+        }
+        foreach ($headers as $h) {
+            if ($request->query->has($h)) {
+                return $request->query->get($h);
             }
         }
         throw new OnBehalfOfMissingException();
@@ -115,8 +119,8 @@ class DefaultController extends Controller
     /**
      * Get a content provider for a UUID.
      *
-     * @param type $uuid
-     * @return type
+     * @param string $uuid
+     * @return ContentProvider
      *
      * @throws TargetOwnerUnknownException if the uuid does not match any provider.
      */
